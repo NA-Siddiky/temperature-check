@@ -22,22 +22,41 @@
     <div class="container">
         <form class="col-md-6 m-auto py-5">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Enter a location for Weather ...">
+                <input id="location" type="text" class="form-control" placeholder="Enter a location for Weather ...">
                 <div class="input-group-append">
-                    <button type="button" class="btn btn-danger">Search</button>
+                    <button onclick="getTemperature()" type="button" class="btn btn-danger">Search</button>
                 </div>
             </div>
         </form>
         <div class="weather-status text-white text-center">
-            <img src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
-            <h1>Dhaka</h1>
-            <h3><span>38.06</span>&deg;C</h3>
-            <h1 class="lead">Clouds</h1>
+            <img id="images" src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+            <h1 id="city">Dhaka</h1>
+            <h3 id="temperature"><span>38.06</span>&deg;C</h3>
+            <h1 id="climate" class="lead">Clouds</h1>
         </div>
     </div>
 
     <script>
-        fetch
+
+        function getTemperature() {
+            fetch('http://api.openweathermap.org/data/2.5/weather?q=Dhaka&appid=48e4a7bd866f1f754f5f9acdc2959b9d')
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data.name)
+                    document.getElementById("location").innerText = data.name;
+                    //
+                    document.getElementById("city").innerText = console.log(data.name);
+                    document.getElementById("temperature").innerText = console.log(data.weather[0].main);
+                    document.getElementById("climate".innerText) = console.log(data.main.temp);
+
+                })
+        }
+        getTemperature();
+
+        // setInterval(() => {
+        //     getTemperature();
+        // }, 50000);
+
     </script>
 </body>
 
